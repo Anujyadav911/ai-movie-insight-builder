@@ -1,36 +1,158 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Movie Insight Builder
 
-## Getting Started
+A modern web application that discovers movie details and provides AI-powered audience sentiment analysis using IMDb movie IDs.
 
-First, run the development server:
+## Features
 
+- **Movie Search**: Enter an IMDb ID (e.g., `tt0133093`) to fetch complete movie details
+- **Detailed Movie Information**: Display title, poster, release year, rating, runtime, director, genre, and cast
+- **Cast Display**: View main cast members in a responsive grid
+- **Plot Summary**: Read the complete plot synopsis
+- **Sentiment Analysis**: AI-powered analysis of audience reviews and sentiment
+- **Sentiment Classification**: Results categorized as positive, negative, or mixed
+- **Key Themes Extraction**: Identifies main themes and topics from reviews
+- **Responsive Design**: Fully responsive on desktop, tablet, and mobile devices
+- **Beautiful UI**: Modern design with animations and smooth transitions
+- **Input Validation**: Robust error handling and user guidance
+
+## Tech Stack
+
+### Frontend
+- **Framework**: Next.js 16.1.6 (React 19.2.3)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4
+- **Animations**: Framer Motion
+- **HTTP Client**: Axios
+- **Icons**: React Icons
+
+### Backend
+- **Runtime**: Node.js (via Next.js API Routes)
+- **API Integration**: OMDb API for movie data
+
+### Testing
+- **Test Framework**: Vitest
+- **Testing Library**: @testing-library/react
+
+## Prerequisites
+
+- Node.js 18+ and npm
+- OMDb API key (free tier available at [omdbapi.com](https://www.omdbapi.com))
+
+## Setup Instructions
+
+### 1. Clone the Repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd ai-movie-insight-builder
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install Dependencies
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Environment Variables
+Create a `.env.local` file in the root directory:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```env
+NEXT_PUBLIC_OMDB_API_KEY=your_omdb_api_key
+NEXT_PUBLIC_HF_API_KEY=your_hugging_face_api_key
+```
 
-## Learn More
+### 4. Development Server
+```bash
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Visit `http://localhost:3000`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 5. Build for Production
+```bash
+npm run build
+npm start
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Usage
 
-## Deploy on Vercel
+1. Enter an IMDb ID (e.g., `tt0133093` for The Matrix)
+2. Click Search
+3. View movie details, cast, and sentiment analysis
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## API Reference
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### GET `/api/movie?imdbId={imdbId}`
+
+Fetches movie information and sentiment analysis.
+
+**Parameters**: `imdbId` - Valid IMDb ID (e.g., `tt0133093`)
+
+**Response**: Movie details, sentiment analysis, and reviews
+
+## Testing
+
+```bash
+npm run test          # Run tests
+npm run test:ui       # Run tests with UI
+```
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── api/movie/route.ts        # Movie API endpoint
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx                  # Main search page
+├── components/
+│   ├── MovieCard.tsx             # Movie details
+│   ├── SentimentDisplay.tsx       # Sentiment results
+│   └── CastList.tsx              # Cast members
+├── lib/
+│   ├── aiService.ts              # Sentiment analysis
+│   ├── movieService.ts           # OMDb integration
+│   └── reviewService.ts          # Review generation
+└── types/
+    └── movie.ts                  # Interfaces
+
+__tests__/
+├── aiService.test.ts
+└── reviewService.test.ts
+```
+
+## Design Decisions
+
+1. **API Routes**: Used Next.js API Routes for secure backend integration
+2. **Sentiment Analysis**: Keyword-based analysis for reliability and speed
+3. **Mock Reviews**: Demonstrative reviews; easily replaceable with real data
+4. **Dark Theme**: Modern design with smooth animations
+5. **Responsive**: Mobile-first approach with Tailwind CSS
+
+## Assumptions
+
+- OMDb API is accessible and has sufficient rate limits
+- Users know IMDb ID format (tt + numbers)
+- Browser supports modern JavaScript
+- Mock reviews adequate for demonstration
+- Simple keyword-based sentiment analysis
+
+## Known Limitations
+
+- OMDb free tier has request limits
+- Mock reviews used for demonstration
+- Keyword-based sentiment analysis has limitations
+- Some movies lack poster images
+- Rate limiting on OMDb API
+
+## Future Enhancements
+
+- ML-based sentiment analysis
+- Real IMDb review scraping
+- User authentication and favorites
+- Movie recommendations
+- Advanced search filters
+- PWA support
+
+## License
+
+Educational and demonstration purposes
